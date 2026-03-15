@@ -5,13 +5,13 @@
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
 #include "Components/CapsuleComponent.h"
-#include "DefaultMovementSet/CharacterMoverComponent.h"
 #include "DefaultMovementSet/NavMoverComponent.h"
 #include "NinjaInputHandler.h"
 #include "Data/NinjaInputSetupDataAsset.h"
 #include "NinjaInput/Components/ExeRunInputManagerComponent.h"
 #include "NinjaInput/InputHandlers/MoverInputHandlers/MoverInputHandler.h"
 #include "Controllers/PlayerControllers/ExeRunPlayerController.h"
+#include "Mover/Components/ExeRunMoverComponent.h"
 
 AExeRunCharacter::AExeRunCharacter()
 {
@@ -47,7 +47,7 @@ AExeRunCharacter::AExeRunCharacter()
 	FollowCamera->SetupAttachment(CameraBoom, USpringArmComponent::SocketName);
 	FollowCamera->bUsePawnControlRotation = false;
 
-	MoverComponent = CreateDefaultSubobject<UCharacterMoverComponent>(TEXT("MoverComponent"));
+	MoverComponent = CreateDefaultSubobject<UExeRunMoverComponent>(TEXT("MoverComponent"));
 	NavMoverComponent = CreateDefaultSubobject<UNavMoverComponent>(TEXT("NavMoverComponent"));
 
 	AbilitySystemComponent = CreateDefaultSubobject<UExeRunAbilitySystemComponent>("AbilitySystemComponent");

@@ -12,7 +12,8 @@
 				"Engine",
 				"CoreUObject",
 				"NinjaInput",
-				"GameplayAbilities"
+				"GameplayAbilities",
+				"Mover"
 			]
 		}
 	],

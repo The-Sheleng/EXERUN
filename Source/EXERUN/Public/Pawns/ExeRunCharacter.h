@@ -11,7 +11,7 @@
 class UCapsuleComponent;
 class USpringArmComponent;
 class UCameraComponent;
-class UCharacterMoverComponent;
+class UExeRunMoverComponent;
 class UNavMoverComponent;
 
 /**
@@ -45,7 +45,7 @@ public:
 	UCameraComponent* GetCamera() const { return FollowCamera; }
 
 	/** Returns main mover component */
-	UCharacterMoverComponent* GetMoverComponent() const { return MoverComponent; }
+	UExeRunMoverComponent* GetMoverComponent() const { return MoverComponent; }
 
 	/** Returns navigation mover component */
 	UNavMoverComponent* GetNavMoverComponent() const { return NavMoverComponent; }
@@ -82,7 +82,7 @@ private:
 
 	/** Networked movement simulation component */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components|Mover", meta=(AllowPrivateAccess="true"))
-	TObjectPtr<UCharacterMoverComponent> MoverComponent;
+	TObjectPtr<UExeRunMoverComponent> MoverComponent;
 
 	/** Navigation movement bridge */
 	UPROPERTY(VisibleAnywhere, BlueprintReadOnly, Category="Components|Mover", meta=(AllowPrivateAccess="true"))

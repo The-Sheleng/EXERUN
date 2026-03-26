@@ -88,14 +88,16 @@ private:
 	bool bUseBaseRelativeMovement = true;
 
 	/** If true, rotate character toward movement direction */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move", meta=(AllowPrivateAccess="true"))
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move", 
+		meta=(AllowPrivateAccess="true", InlineEditConditionToggle))
 	bool bOrientRotationToMovement = true;
 
+	/** Minimal movement magnitude required to update orientation intent */
+	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move", 
+		meta=(AllowPrivateAccess="true", EditCondition="bOrientRotationToMovement"))
+	float RotationMagMin = 1e-3f;
+	
 	/** If true, maintain last input orientation after movement stops */
 	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move", meta=(AllowPrivateAccess="true"))
 	bool bMaintainLastInputOrientation = false;
-	
-	/** Minimal movement magnitude required to update orientation intent */
-	UPROPERTY(EditAnywhere, BlueprintReadWrite, Category="Move", meta=(AllowPrivateAccess="true"))
-	float RotationMagMin = 1e-3f;
 };

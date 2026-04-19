@@ -2,7 +2,7 @@
 
 #include "Controllers/PlayerControllers/ExeRunPlayerController.h"
 
-#include "NinjaInput/Components/ExeRunInputManagerComponent.h"
+#include "Components/NinjaInputManagerComponent.h"
 #include "Pawns/ExeRunCharacter.h"
 
 UAbilitySystemComponent* AExeRunPlayerController::GetAbilitySystemComponent() const
@@ -23,5 +23,5 @@ const UExeRunAbilitySystemComponent* AExeRunPlayerController::GetExeRunAbilitySy
 
 AExeRunPlayerController::AExeRunPlayerController()
 {
-	InputManagerComponent = CreateDefaultSubobject<UExeRunInputManagerComponent>(TEXT("InputManagerComponent"));
+	InputManagerComponent = CreateDefaultSubobject<UNinjaInputManagerComponent>(TEXT("InputManagerComponent"));
 }

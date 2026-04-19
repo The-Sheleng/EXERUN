@@ -2,16 +2,11 @@
 
 #include "Pawns/ExeRunCharacter.h"
 
+#include "Components/CapsuleComponent.h"
 #include "Camera/CameraComponent.h"
 #include "GameFramework/SpringArmComponent.h"
-#include "Components/CapsuleComponent.h"
-#include "DefaultMovementSet/NavMoverComponent.h"
-#include "NinjaInputHandler.h"
-#include "Data/NinjaInputSetupDataAsset.h"
-#include "NinjaInput/Components/ExeRunInputManagerComponent.h"
-#include "NinjaInput/InputHandlers/MoverInputHandlers/MoverInputHandler.h"
-#include "Controllers/PlayerControllers/ExeRunPlayerController.h"
 #include "Mover/Components/ExeRunMoverComponent.h"
+#include "DefaultMovementSet/NavMoverComponent.h"
 
 AExeRunCharacter::AExeRunCharacter()
 {
@@ -53,51 +48,8 @@ AExeRunCharacter::AExeRunCharacter()
 	AbilitySystemComponent = CreateDefaultSubobject<UExeRunAbilitySystemComponent>("AbilitySystemComponent");
 	AbilitySystemComponent->SetReplicationMode(EGameplayEffectReplicationMode::Mixed);
 	
-	SetNetUpdateFrequency(60.0f);
-	
 	PrimaryActorTick.bCanEverTick = false;
 
 	/** Movement replication handled by mover */
 	SetReplicatingMovement(false);
-}
-
-void AExeRunCharacter::ProduceInput_Implementation(int32 SimTimeMs, FMoverInputCmdContext& InputCmdResult)
-{
-	FCharacterDefaultInputs& CharacterInputs =
-		InputCmdResult.InputCollection.FindOrAddMutableDataByType<FCharacterDefaultInputs>();
-
-	/** Pawn is not possessed */
-	if (!IsValid(Controller))
-	{
-		if (GetLocalRole() == ROLE_Authority && GetRemoteRole() == ROLE_SimulatedProxy)
-		{
-			static const FCharacterDefaultInputs DoNothingInput;
-			CharacterInputs = DoNothingInput;
-		}
-
-		return;
-	}
-
-	CharacterInputs.ControlRotation = Controller->GetControlRotation();
-
-	/** Collects input from NinjaInput handlers and feeds mover simulation */
-
-	const AExeRunPlayerController* PlayerController = Cast<AExeRunPlayerController>(Controller);
-
-	if (!IsValid(PlayerController)) return;
-
-	UExeRunInputManagerComponent* InputManager = PlayerController->GetInputManagerComponent();
-
-	if (!IsValid(InputManager)) return;
-
-	for (const UNinjaInputSetupDataAsset* Setup : InputManager->GetInputHandlerSetups())
-	{
-		for (UNinjaInputHandler* InputHandler : Setup->InputHandlers)
-		{
-			if (UMoverInputHandler* CastedInputHandler = Cast<UMoverInputHandler>(InputHandler))
-			{
-				CastedInputHandler->ProduceInput(InputManager, SimTimeMs, InputCmdResult);
-			}
-		}
-	}
 }

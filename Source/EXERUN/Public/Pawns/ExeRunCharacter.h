@@ -2,9 +2,7 @@
 
 #pragma once
 
-#include "CoreMinimal.h"
 #include "AbilitySystemInterface.h"
-#include "MoverSimulationTypes.h"
 #include "AbilitySystem/Components/ExeRunAbilitySystemComponent.h"
 #include "ExeRunCharacter.generated.h"
 
@@ -19,14 +17,9 @@ class UNavMoverComponent;
  *
  * Character is based on APawn instead of ACharacter and relies on
  * CharacterMoverComponent for movement simulation and replication.
- *
- * Responsibilities:
- * - Own core character components
- * - Produce movement input for Mover system
- * - Provide camera setup
  */
 UCLASS()
-class EXERUN_API AExeRunCharacter : public APawn, public IMoverInputProducerInterface, public IAbilitySystemInterface
+class EXERUN_API AExeRunCharacter : public APawn, public IAbilitySystemInterface
 {
 	GENERATED_BODY()
 
@@ -57,11 +50,8 @@ public:
 	const UExeRunAbilitySystemComponent* GetExeRunAbilitySystemComponent() const { return AbilitySystemComponent; }
 
 	AExeRunCharacter();
-	
-	/** Produces movement input for mover simulation */
-	virtual void ProduceInput_Implementation(int32 SimTimeMs, FMoverInputCmdContext& InputCmdResult) override;
 
-	
+
 private:
 
 	/** Character collision capsule */

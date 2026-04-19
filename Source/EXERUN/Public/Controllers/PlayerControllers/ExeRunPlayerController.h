@@ -7,8 +7,8 @@
 #include "GameFramework/PlayerController.h"
 #include "ExeRunPlayerController.generated.h"
 
+class UNinjaInputManagerComponent;
 class UExeRunAbilitySystemComponent;
-class UExeRunInputManagerComponent;
 
 /**
  * Player controller used in ExeRun project.
@@ -27,7 +27,7 @@ class EXERUN_API AExeRunPlayerController : public APlayerController, public IAbi
 public:
 
 	/** Returns input manager responsible for processing player input */
-	UExeRunInputManagerComponent* GetInputManagerComponent() const { return InputManagerComponent; }
+	UNinjaInputManagerComponent* GetInputManagerComponent() const { return InputManagerComponent; }
 
 	/** Returns the standard Ability System Component of the associated character */
 	virtual UAbilitySystemComponent* GetAbilitySystemComponent() const override;
@@ -42,5 +42,5 @@ private:
 
 	/** Centralized input manager handling NinjaInput system */
 	UPROPERTY(EditAnywhere, BlueprintReadOnly, Category="Input", meta=(AllowPrivateAccess="true"))
-	TObjectPtr<UExeRunInputManagerComponent> InputManagerComponent;
+	TObjectPtr<UNinjaInputManagerComponent> InputManagerComponent;
 };

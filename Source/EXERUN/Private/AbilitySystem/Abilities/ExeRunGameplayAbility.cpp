@@ -3,3 +3,7 @@
 
 #include "AbilitySystem/Abilities/ExeRunGameplayAbility.h"
 
+UExeRunGameplayAbility::UExeRunGameplayAbility()
+{
+	InstancingPolicy = EGameplayAbilityInstancingPolicy::InstancedPerActor;
+}

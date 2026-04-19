@@ -53,18 +53,31 @@ protected:
 		bool bReplicateEndAbility, 
 		bool bWasCancelled) override;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components")
+	/** 
+	 * Automatically commits the ability immediately before executing AbilityComponents.
+	 * If commit fails, the ability will be canceled.
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Execution")
 	bool bAutoCommitAbility = false;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components", meta=(EditCondition="bAutoCommitAbility"))
+	/** If true, CancelAbility will be replicated when auto commit fails */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Execution", meta=(EditCondition="bAutoCommitAbility"))
 	bool bReplicateCancelAutoCommitAbility = true;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components")
+	/** Automatically ends the ability immediately after all AbilityComponents finish execution */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Execution")
 	bool bAutoEndAbility = false;
 
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components", meta=(EditCondition="bAutoEndAbility"))
+	/** If true, EndAbility will be replicated when auto end is triggered */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Execution", meta=(EditCondition="bAutoEndAbility"))
 	bool bReplicateAutoEndAbility = true;
 	
-	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Components", Instanced, meta=(ShowOnlyInnerProperties))
+	/**
+	 * Modular components that receive ability lifecycle events 
+	 * (PreActivate, Activate, Commit, Cancel, End).
+	 *
+	 * Used to compose reusable ability behavior.
+	 */
+	UPROPERTY(EditDefaultsOnly, BlueprintReadOnly, Category="Execution", Instanced, meta=(ShowOnlyInnerProperties))
 	TArray<TObjectPtr<UAbilityComponent>> AbilityComponents;
 };

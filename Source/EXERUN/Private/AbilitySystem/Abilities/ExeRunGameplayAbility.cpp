@@ -51,7 +51,8 @@ void UExeRunGameplayAbility::ActivateAbility(
 {
 	Super::ActivateAbility(Handle, ActorInfo, ActivationInfo, TriggerEventData);
 	
-	if (bAutoCommitAbility && !CommitAbility(Handle, ActorInfo, ActivationInfo))
+	if (!ensureAlways(HasAuthorityOrPredictionKey(ActorInfo, &ActivationInfo))
+		|| bAutoCommitAbility && !CommitAbility(Handle, ActorInfo, ActivationInfo))
 	{
 		CancelAbility(Handle, ActorInfo, ActivationInfo, bReplicateCancelAutoCommitAbility);
 		return;

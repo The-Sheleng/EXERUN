@@ -58,7 +58,7 @@ void UExeRunGameplayAbility::ActivateAbility(
 		return;
 	}
 	
-	if (bAutoCommitAbility || !CommitCheck(Handle, ActorInfo, ActivationInfo))
+	if (bAutoCommitAbility || CommitCheck(Handle, ActorInfo, ActivationInfo))
 	{
 		for (UAbilityComponent* Component : AbilityComponents)
 		{
